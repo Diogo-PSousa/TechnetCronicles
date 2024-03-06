@@ -1,0 +1,32 @@
+.notifications-page {
+    max-width: 60rem; /* Adjust to your desired width */
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #fff;
+}
+
+/* Style for individual notification items */
+.notification-item {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+/* Style for notification body */
+.notification-item p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Style for notification date */
+.notification-item p:last-child {
+    color: #666;
+    font-size: 14px;
+}
+
+
+#notificationText{
+    margin: 5px;
+}

@@ -1,0 +1,531 @@
+.main-container {
+    margin: 0 auto;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Center the content vertically and horizontally */
+.top-feed-container {
+    width: 40%;
+    margin-right: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.tag-name {
+    height: 3.7em;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: flex-end;
+    background-color: #ffffff;
+    width: 100%;
+    margin: 0px auto 1px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tag-name .breadcrumb {
+    background-color: inherit;
+    flex: 0.5;
+    text-align: left;
+}
+
+.tag-name h2 {
+    position: absolute;
+    margin: 0.3em 0;
+    font-size: 3.4rem;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.tag-name button {
+    font-size: 1.1rem;
+    padding: 0 1.8rem;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    margin: 0;
+    position: absolute;
+    top: 45%;
+    left: 83%;
+    transform: translate(-30%, -45%);
+}
+
+/* Style for the news feed options container */
+.news-feed-options {
+    display: flex;
+    background-color: #ffffff;
+    width: 100%;
+    margin: 0px auto 1px auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for each news feed option */
+.news-feed-options a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #083d6c;
+    text-decoration: none;
+    font-size: 18px;
+    width: 50%;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* Style for the active (selected) news feed option */
+.news-feed-options a.active {
+    font-weight: bold;
+    color: #083d6c;
+    border-bottom: 7px solid #083d6c;
+    background-color: #ffffff;
+}
+
+.article-container {
+    width: 100%;
+    min-height: 400px;
+    /* Set a minimum height as needed */
+}
+
+/* Style for each article box */
+.article-box {
+    position: relative;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    padding: 3rem 4rem 1.5rem 0.5rem
+}
+
+/* Style for the article body */
+.article-box .article-body {
+    font-size: 2rem;
+    margin: 0;
+    color: #083d6c;
+    opacity: 80%;
+    text-align: start;
+    letter-spacing: -0.05rem
+}
+
+/* Style for the reputation (on the left side) */
+.reputation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    background-color: #fff;
+    color: #083d6c;
+    font-weight: bold;
+    margin-right: 3rem;
+    margin-left: 3rem;
+    text-align: center;
+}
+
+.reputation-value {
+    margin: 0;
+}
+
+.reputation i {
+    font-size: 35px;
+}
+
+/* Style for the article content */
+.article {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+/* Style for the article tags */
+.article-tags {
+    top: 10px;
+    left: 20px;
+    display: flex;
+}
+
+/* Style for each tag */
+.article-tags a.tag {
+    background-color: #083d6c;
+    color: #fff;
+    padding: 6px 9px;
+    border-radius: 15px;
+    margin-right: 10px;
+    font-size: 1.5rem;
+    margin-bottom: 0.5em;
+    text-decoration: none;
+    position: relative;
+    display: inline-block;
+}
+
+.article-tags a.tag:hover {
+    background-color: #Dedede;
+    color: #083d6c;
+    font-weight: bold;
+}
+
+.article-tags a.tag:hover .followBalloon {
+    visibility: visible;
+    opacity: 1;
+}
+
+.article-tags a.tag .followBalloon {
+    opacity: 0;
+    transition: opacity 0.6s;
+    visibility: hidden;
+    width: 120px;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: 90%;
+    /* Position below the tag */
+    left: 50%;
+    transform: translateX(-50%);
+    /* Center it horizontally */
+}
+
+/* Style for the article header (username and title) */
+.article-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    margin-top: 0.6em;
+}
+
+/* Style for "Posted by" text */
+.posted-by {
+    font-size: 15px;
+    font-weight: 400;
+    margin: 0;
+    color: #000;
+}
+
+/* Style for the username */
+.username {
+    font-size: 15px;
+    font-weight: bold;
+    margin: 0;
+    margin-top: -5px;
+}
+
+.article-header a.username {
+    text-decoration: underline;
+}
+
+.article-header p.username {
+    text-decoration: line-through;
+}
+
+/* Style for the article title */
+.article-title {
+    font-size: 30px;
+    font-weight: 500;
+    margin: 5px 0;
+}
+
+/* Style for the article image (adjust dimensions as needed) */
+.article img {
+    max-width: 100%;
+    max-height: 40rem;
+    margin: 1rem 0;
+    margin-bottom: 0;
+}
+
+/* Style for the article info (date and creator) */
+.article-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    margin-top: 1.5rem;
+    width: 100%;
+}
+
+.article-info div{
+    display: flex;
+    align-items: center;
+}
+
+.article-info div p{
+    margin-bottom: 0.5rem;
+    margin-left: 0.5rem;
+    letter-spacing: -0.05rem;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.article-info div i{
+    font-size: 2.5rem;
+}
+
+.article-info form#favoriteForm {
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.article-info form#favoriteForm button{
+    margin-bottom: 0;
+}
+
+
+.report-form {
+    width: calc(100% - 40px); /* Full width minus padding */
+    padding: 10px 20px; /* Adjust padding as needed */
+    box-sizing: border-box; /* Include padding in width calculation */
+    border-top: 1px solid #ccc; /* Separator from the rest of the article */
+  }
+  
+  .report-form textarea {
+    width: 100%; /* Make textarea full width */
+    margin-bottom: 10px; /* Space between textarea and button */
+  }
+  
+  .report-form button {
+    display: block; /* Full width button */
+    width: 100%;
+  }
+
+
+.article a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.articles-right-side {
+    width: 10em;
+    align-self: flex-start;
+    margin-left: 10px;
+}
+
+.articles-right-side .write-article {
+    margin-top: 1em;
+    width: 100%
+}
+
+.articles-right-side .popular-topics div.propose-topic-form form {
+    margin-bottom: 0;
+}
+
+/* Style for the Popular Topics container on the right */
+.popular-topics {
+    background-color: #ffffff;
+    max-height: 25%;
+    /* Adjust the width as needed */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    /* Add padding for spacing */
+    text-align: start;
+    align-self: flex-start;
+}
+
+/* Style for the Popular Topics header */
+.popular-topics h3 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Style for each Popular Topic */
+.popular-topics ol {
+    padding: 0;
+    font-weight: bold;
+    color: black;
+}
+
+/* Style for each Popular Topic item */
+.popular-topics ol li {
+    font-size: 1.8rem;
+    margin-bottom: -15px;
+}
+
+/* Style for Popular Topic links */
+.popular-topics ol li a {
+    font-size: 1.95rem;
+    color: #083d6c;
+    text-decoration: none;
+    font-weight: lighter;
+    /* Lighter font-weight for tag names */
+}
+
+/* Style for the number of articles (smaller font and grey color) */
+.popular-topics ol li a p {
+    font-weight: bold;
+    /* Bold font-weight for the number of articles */
+    color: #888;
+    /* Grey color for the number of articles */
+    font-size: 1.7rem;
+    /* Adjust the font size as needed */
+    font-weight: lighter;
+    margin-top: -5px;
+}
+
+#followMessageContainer,
+#followUserMessageContainer {
+    /* Base styles that are less noticeable */
+    border: 1px solid transparent;
+    /* Transparent border */
+    text-align: center;
+    padding: 10px;
+    margin: 0.5em 0;
+    color: transparent;
+    /* Hide text */
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+#followMessageContainer.active,
+#followUserMessageContainer.active {
+    /* Full styling when there's a message */
+    border-color: #ccc;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    background-color: #Dedede;
+    color: #083d6c;
+    /* Visible text color */
+}
+
+/* Type-specific styles */
+.followMessageContainer.error,
+.followUserMessageContainer.error {
+    border-color: #ff3860;
+}
+
+.followMessageContainer.success,
+.followUserMessageContainer.success {
+    border-color: #083d6c;
+}
+
+.followMessageContainer.info,
+.followUserMessageContainer.info {
+    border-color: #209cee;
+}
+
+.report-form button{
+    padding: 0;
+}
+
+@media (max-width: 768px) {
+    .top-feed-container {
+        width: 60%;
+        margin: 0;
+        padding: 0;
+        /* Position the container after the popular tags */
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .top-feed-container,
+    .articles-right-side {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        order: 1;
+        /* Position the container after the popular tags */
+    }
+
+    .top-feed-container {
+        order: 2;
+    }
+
+    .article-container {
+        order: 2;
+        /* Position the articles below the popular tags */
+    }
+
+    .popular-topics {
+        order: 0;
+        /* Position the popular topics at the top */
+        width: 100%;
+        /* Make the popular topics full width */
+        margin-bottom: 1rem;
+        /* Add some space between the topics and articles */
+    }
+
+    .article-box {
+        padding: 1rem;
+        /* Adjust padding for smaller screens */
+    }
+
+    .reputation {
+        margin: 1rem;
+    }
+
+    .articles-right-side {
+        margin-bottom: 0rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .articles-right-side .popular-topics {
+        width: 100%;
+        background-color: #fff;
+        max-height: 100%;
+        padding: 1rem 2rem;
+    }
+
+    .articles-right-side .popular-topics ol {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 0;
+        list-style: none;
+        justify-content: space-between;
+    }
+
+    .articles-right-side .popular-topics ol li a {
+        font-size: 1.8rem;
+    }
+
+    .articles-right-side .popular-topics ol li p {
+        margin-bottom: 1rem;
+    }
+
+
+    .articles-right-side .write-article {
+        margin-top: 0;
+        position: relative;
+        justify-content: center;
+        display: flex;
+    }
+
+    .articles-right-side .write-article button {
+        margin-bottom: 1rem;
+        width: 30rem;
+    }
+
+    div#followMessageContainer {
+        display: none;
+    }
+
+    div.tag-name {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+    }
+
+    div.tag-name h2 {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: translate(0%, 0%);
+    }
+
+    div.tag-name form button {
+        position: relative;
+        transform: translate(0%, 0%);
+        top: auto;
+        left: auto;
+        margin-bottom: 1rem;
+    }
+}

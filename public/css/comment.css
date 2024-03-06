@@ -1,0 +1,80 @@
+.comments .reputation {
+    display:flex;
+    flex-direction: row;
+    justify-content: start;
+}
+
+.comments .reputation .reputation-value{
+    margin: 0 1rem;
+    font-size: 1em;
+}
+
+.comments #messageContainer{
+    position: relative;
+}
+
+#submit-btn{
+    background-color: #7b7b7b;
+}
+
+#CommentsortDateBtn{
+    border-radius: 10px;
+    padding: 20px;
+    display: inline-flex;
+    padding: 8px 16px; 
+    border: 1px solid #083d6c;
+    border-radius: 4px;
+    background-color: #083d6c;
+    color: white;
+    cursor: pointer;
+    text-align: center;
+}
+
+#CommentsortDateBtn:hover {
+    background-color: #7b7b7b;
+}
+
+#sort_iconDown,
+#sort_iconUp {
+    margin-left: 5px; /* Adjust icon spacing */
+    margin-top: 5px;
+    vertical-align: middle;
+}
+
+.commentHeader{
+    display: flex;
+    flex-direction: row;
+    margin: 20px;
+    justify-content: space-between;
+}
+
+.comment-top{
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-top-left {
+    display:flex;
+}
+
+.comment-top-left .fas{
+    line-height: 1.6;
+    margin-right: 0.7rem;
+}
+
+.comment-top-left p{
+    margin-right: 3rem;    
+}
+
+.comment {
+    border-color: #083d6c;
+    border-radius: 0.5rem;
+    border-style: solid;
+    border-width: 0.1rem;
+    padding: 0.8rem;
+    margin-bottom: .8rem;
+}
+
+form#commentForm {
+    margin-bottom: 0rem;
+}

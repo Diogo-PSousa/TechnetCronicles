@@ -1,0 +1,655 @@
+body {
+    font-family: 'Merriwheather', serif;
+    background-color: #e9ecef;
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 2s ease-out;
+}
+
+#messageContainer,
+#followUserMessageContainer {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 10;
+}
+
+.success-message {
+    color: #106af1;
+}
+
+.error-message {
+    color: #ff3333;
+}
+
+.container-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 55%;
+    height: 65%;
+    margin: 0 auto;
+    margin-top: 1.5rem;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-items: center;
+}
+
+.profile-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 75%;
+    margin: 10px 40px auto;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-items: flex-start;
+}
+
+.profile-left {
+    height: 80%;
+    width: 25%;
+    max-width: 25%;
+    flex: 1;
+    margin-top: 5rem;
+    margin-right: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-right {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-stats {
+    padding: 5px;
+    border-top: 1px solid #eee;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.profile-stats ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: stretch;
+}
+
+.profile-stats li {
+    flex: 1;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+}
+
+.user-info {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    order: 0;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 1.5em;
+}
+
+.user-info input[type='file'] {
+    color: #555;
+    font-size: 1rem;
+    margin: 10px 0;
+    
+    /* Style adjustments */
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    
+    /* This can help align the text in some browsers */
+    line-height: 1;
+    text-align: center;
+    display: inline-block;
+    width: auto; /* Adjust width as necessary */
+}
+
+.user-info img{
+    width: 20rem;
+    height: 20rem;
+    border-radius: 100%;
+}
+
+.user-info p {
+    margin-bottom: -1rem;
+    align-self: flex-start;
+    display: flex;
+    flex-direction: row;
+}
+
+.user-info .reputationProfile {
+    align-self: flex-start;
+    font-size: 2rem;
+    color: #083d6c;
+    margin-bottom: 10px;
+    order: -1;
+}
+
+.user-info .avatar {
+    width: 20rem;
+    height: 20rem;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    background-size: cover;
+    background-position: center;
+}
+
+.user-info h1 {
+    flex-grow: 1;
+    max-width: 20rem;
+    max-height: 5rem;
+    font-size: 2rem;
+    overflow: auto;
+    text-overflow: ellipsis;
+    margin: 10px 0;
+    color: #083d6c;
+    text-align: center;
+}
+
+.user-info bio {
+    flex-grow: 1;
+    max-width: 20rem;
+    max-height: 18rem;
+    box-sizing: border-box;
+    overflow: auto;
+    font-size: 1.5rem;
+    color: #666;
+    text-align: center;
+}
+
+.user-list {
+    width: 100%;
+    max-height: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.tab-button {
+    height: 100%;
+    padding: 0px 0px;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+}
+
+.tab-button p {
+    margin-bottom: 0;
+    padding: 0 0.6rem;
+}
+
+.tab-button p:first-of-type {
+    margin-bottom: -2rem;
+}
+
+.tab-button.active {
+    background-color: #003366;
+    color: white;
+}
+
+.tab-content {
+    flex-grow: 1;
+    max-width: 80rem;
+    max-height: 60rem;
+    box-sizing: border-box;
+    overflow: auto;
+    display: none;
+    padding: 20px;
+}
+
+.tab-content h3 {
+    margin: 1rem;
+    font-size: 2.25rem;
+}
+
+.tab-content .articles {
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+    margin: 1rem;
+    margin-left: 0;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.unblock-appeal {
+    margin-bottom: 1rem;
+    width:100%;
+    align-items: center;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    height: auto;
+    padding: 1rem;
+    outline: 0.1rem solid #003366;
+}
+
+.unblock-appeal .appeal-text {
+    font-size: 2rem;
+    margin-top: 0; 
+    margin-left: 1rem;
+    white-space: pre-line;
+    word-wrap: break-word; 
+}
+
+.user-list .user-box,
+.user-list-search .user-box,
+.tab-content .user-box,
+.tab-content .topic-tag {
+    font-size: 2rem;
+    text-decoration: none;
+    color: inherit;
+    align-self: flex-start;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    height: auto;
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.tab-content .user-box .user-box-left,
+.tab-content .user-box .user-box-left p {
+    display: flex;
+    margin-bottom: 0;
+    align-items: center;
+}
+
+.tab-content .user-box {
+    justify-content: space-between;
+}
+
+
+.tab-content .user-box .user-box-bio {
+    font-size: 1.5rem;
+    margin-bottom: 0;
+}
+
+.tab-content .topic-tag {
+    padding-right: 2rem;
+    padding-left: 2rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tab-content .topic-tag form#followTagForm {
+    margin: 1rem 0;
+}
+
+.user-list-search .user-box,
+.user-list .user-box {
+    font-size: 2.5rem;
+}
+
+
+.user-list .user-box {
+    box-shadow: none;
+}
+
+.user-list .user-box form {
+    align-self: flex-end;
+}
+
+.user-list .user-box img,
+.user-list-search .user-box img {
+    width: 12.5rem;
+    height: 12.5rem;
+}
+
+.user-list .user-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+.user-list .user-card form,
+.user-list .user-card button {
+    margin-bottom: 0;
+    margin-left: 0.25rem;
+}
+
+.tab-content#Following img,
+.tab-content#Followers img {
+    height: 5rem;
+    width: 5rem;
+}
+
+.tab-content .articles img {
+    width: 12.5rem;
+    height: 10rem;
+    border-radius: 0.5rem;
+}
+
+.tab-content h4 {
+    margin: 1rem;
+    font-size: 1.5rem;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.edit-container {
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.edit-button {
+    background-color: #f9f9f9;
+    color: #083d6c;
+    border: none;
+    cursor: pointer;
+    padding: 0px 10px;
+}
+
+.edit-button:active,
+.edit-button:hover,
+.edit-button:focus {
+    outline: none;
+    border: none;
+    color: #f9f9f9;
+    background-color: #083d6c;
+}
+
+[contenteditable="true"] {
+    border: 1px dashed #ccc;
+    padding: 0.2rem;
+    border-radius: 0.2rem;
+}
+
+.adminbutton {
+    margin-left: 1rem;
+    position: absolute;
+    top: 15rem;
+    left: 1rem;
+}
+
+.adminbutton2 {
+    margin-left: 1rem;
+    position: absolute;
+    top: 19rem;
+    left: 1rem;
+}
+
+.adminbutton3 {
+    margin-left: 1rem;
+    position: absolute;
+    top: 23rem;
+    left: 1rem;
+}
+
+.breadcrumb {
+    display: flex;
+    padding: 8px 15px;
+    list-style: none;
+    background-color: #e9ecef;
+    border-radius: .25rem;
+    margin-bottom: -2rem;
+    margin-left: 2.5rem;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    content: ">";
+    padding: 0 5px;
+    color: #6c757d;
+}
+
+.breadcrumb-item a {
+    color: #083d6c;
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    color: #083d6c;
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: #6c757d;
+}
+
+button.delete-account-text,
+button.unfollow-text,
+button.follow-text {
+    border-radius: 15px;
+    padding: 0 1rem;
+    display: inline-flex;
+    font-size: 0px;
+    margin-bottom: 0px;
+}
+
+button.unfollow-text::after,
+button.follow-text::after {
+    font-size: 1.1rem;
+    margin-right: 0.8em;
+}
+
+button.unfollow-text::after {
+    content: "Following"
+}
+
+button.unfollow-text:hover::after {
+    content: "Unfollow?"
+}
+
+button.follow-text::after {
+    content: "Follow"
+}
+
+button.follow-text:hover::after {
+    content: "Follow?"
+}
+
+.report-item {
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-width: 0;
+}
+
+.report-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.report-reason {
+    font-size: 3rem; 
+    color: #333;
+    margin: 0.5rem 0;
+}
+
+.report-meta {
+    font-size: 2rem;
+    color: #666;
+}
+
+.report-meta a {
+    color: #0056b3;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.report-meta a:hover {
+    color: #003366;
+    text-decoration: underline;
+}
+
+.report-date {
+    text-align: right;
+    font-size: 1.6rem;
+    color: #666;
+    white-space: nowrap; 
+}
+
+.report-actions {
+    display: flex; 
+    gap: 10px; 
+}
+
+.report-action-form {
+    margin: 0; 
+}
+
+.bothbuttons{
+    display: flex;
+    
+}
+
+.bothbuttons button{
+    margin-right: 1rem;
+    
+}
+
+
+@media (max-width: 768px) {
+
+    .adminbutton {
+        margin-left: 1rem;
+        position: absolute;
+        top: 11rem;
+        left: 1.5%;
+    }
+
+    .adminbutton2 {
+        margin-left: 1rem;
+        position: absolute;
+        top: 11rem;
+        left: 48.5%;
+    }
+
+    .adminbutton3 {
+        margin-left: 1rem;
+        position: absolute;
+        top: 15rem;
+        left: 32%;
+    }
+    
+    .container {
+        margin: 0;
+        width: 100%;
+    }
+
+    .profile-container {
+        flex-direction: column;
+        width: 100%;
+        margin: 0;
+    }
+
+    .profile-left,
+    .profile-right {
+        max-width: 100%;
+        width: 100%;
+        margin-right: 0;
+    }
+
+    .tab-content {
+        padding: 0.5rem;
+    }
+
+    .tab-content .articles {
+        display: block;
+        margin: 0rem;
+    }
+
+    .user-list .user-card button {
+        margin-bottom: 0.5rem;
+        margin-left: 0.25rem;
+    }
+
+    .tab-content .user-box {
+        flex-direction: column;
+    }
+
+    .container-list {
+        margin: 0;
+        margin-top: 9rem;
+        width: 100%;
+    }
+
+    .container-list .user-list {
+        padding: 0;
+    }
+
+    .container-list .user-list .user-card {
+        flex-direction: column;
+    }
+
+    .container-list .user-list .user-card .user-box img {
+        width: 5rem;
+        height: 5rem;
+    }
+    .report-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .report-date {
+        text-align: left;
+        margin-top: 1rem;
+    }
+    .report-item {
+        flex-direction: column; 
+        align-items: flex-start; 
+        padding: 0.5rem; 
+    }
+
+    .report-actions {
+        flex-direction: column; 
+        width: 100%; 
+    }
+
+}

@@ -1,0 +1,50 @@
+/* Ensures that the flex container fills the height and centers its children vertically and horizontally */
+.search-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10vh;
+    height: 100vh;
+}
+
+/* Styles the form to not be too wide on larger screens */
+.search-form {
+    width: 100%;
+    max-width: 500px; /* Adjust as needed */
+}
+
+/* Styles the search input with rounded edges, a border, and padding for a modern look */
+div.search-container .search-input {
+    width: calc(100% - 100px); /* Reserves space for the button */
+    padding: 16px 20px;
+    font-size: 1em;
+    outline: none; /* Removes the default focus outline */
+    background-color: #f0f0f0;
+}
+
+/* Styles the search button to match the input field and the site's color scheme */
+.search-button {
+    padding: 12px 20px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    color: white;
+    border: 2px solid #083d6c; /* Same blue border color */
+    border-left: none; /* Removes the left border */
+    cursor: pointer;
+    outline: none; /* Removes the default focus outline */
+}
+
+/* Subtle shadow for depth, and a transition for the hover effect */
+.search-input,
+.search-button {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Darkens the button on hover for interactivity */
+.search-button:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}

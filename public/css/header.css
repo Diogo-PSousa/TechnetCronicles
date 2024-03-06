@@ -1,0 +1,255 @@
+.header-content {
+    position: relative;
+    top: 0;
+    color: #ffffff;
+    background-color: #083d6c;
+    margin: 0;
+    /* Ensure no margin on the body */
+    display: flex;
+    /* Use flexbox to arrange children */
+    flex-direction: row;
+    /* Stack children horizontally */
+    justify-content: space-between;
+    /* Center children horizontally and place children at the ends */
+    align-items: center;
+    /* Center children vertically */
+    height: 100px;
+    /* Set a fixed height for the header */
+    position: relative;
+    /* Add relative positioning to the header */
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+    /* Add a small shadow at the bottom */
+}
+
+
+.logo {
+    margin: 0;
+    /* Remove margin if any */
+    text-align: center;
+    /* Center text horizontally */
+    font-size: 1.6em;
+    /* Adjust the font size as needed */
+    position: absolute;
+    /* Add absolute positioning to the logo */
+    left: 50%;
+    /* Move the logo to the horizontal center */
+    top: 20%;
+    transform: translateX(-50%);
+    /* Center the logo horizontally */
+}
+
+.header-left {
+    display: flex;
+    /* Use flexbox to arrange children */
+    align-items: center;
+    /* Center children vertically */
+    margin-top: 0px;
+    /* Add some space between the logo and the links */
+    top: 50%;
+    margin-left: 20px;
+}
+
+.header-right {
+    display: flex; /* Use flexbox to arrange children */
+    align-items: center; /* Center children vertically */
+    justify-content: right;
+    margin-top: 0px; /* Add some space between the logo and the links */
+    top: 50%;
+    margin-right: 100px;
+    width: 40vw;
+}
+
+.header-right a {
+    margin: 0 20px; /* Add horizontal spacing between links */
+}
+
+.header-right form.header-search-form{
+    margin-bottom: 0;
+}
+
+.search-input {
+    font-size: 16px; /* Adjust as needed */
+    padding: 0px;
+    margin: 0px;
+    border: none;
+    border-bottom: 2px solid #555; /* Gives focus to the input */
+    background-color: white;
+    color: black; /* Adjust based on your header's color scheme */
+}
+
+.search-input:focus {
+    outline: none;
+    width: 12vw;
+    border-bottom-color: #007bff;
+    background-color: white; /* Change color on focus */
+}
+
+.filter-button {
+    background-color: #007bff; /* Button color */;
+    text-align: center;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.search-filters {
+    display: none; /* Initially hidden */
+    position: relative;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    left: 0;
+    height: 11vh;
+    margin-top:4vh;
+}
+
+.search-filters label {
+    position : relative;
+    display: block;
+    padding: 5px;
+    cursor: pointer;
+    color: black;
+    margin: 0 10px;
+    /* Add horizontal spacing between links */
+}
+
+/* Hamburger Menu */
+section.p-menu1{
+    display: none;
+}
+
+.search-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    background-color: #f9f9f9;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 5px;
+    border-radius: 4px;
+    z-index: 1000;
+    white-space: nowrap;
+    font-size: 0.9em;
+    transition: opacity 2s, visibility 2s;
+}
+
+/* Position the tooltip below the input field */
+#search-input:hover + .search-tooltip {
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 2s; /* Delay of 2 seconds */
+}
+
+
+
+/* Mobile styles */
+@media (max-width: 768px) {
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    section.p-menu1{
+        display: block;
+        height: 100%;
+    }
+
+    .header-left, .header-right{
+        display: none;
+    }
+
+
+    /* Hamburger */
+    .hamburger1 {
+        height: 3rem;
+        margin-top: 4rem;
+        display: -ms-grid;
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        justify-items: center;
+        z-index: 120;
+    }
+
+    .hamburger1 div {
+        background-color: #ffffff;
+        position: relative;
+        width: 3rem;
+        height: 0.3rem;
+        -webkit-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;
+        transform-origin: center;
+    }
+
+    #toggle1 {
+        display: none;
+    }
+
+    #toggle1:checked+.hamburger1 .top {
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+        margin-top: 1.5rem;
+    }
+
+    #toggle1:checked+.hamburger1 .meat {
+        -webkit-transform: rotate(45deg);
+        transform: rotate(45deg);
+        margin-top: -0.35rem;
+    }
+
+    #toggle1:checked+.hamburger1 .bottom {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+    }
+
+    #toggle1:checked~.menu1 {
+        height: 26rem;
+    }
+
+
+    /* Menu */
+    .menu1 {
+        position: relative;
+        z-index: 10000;
+        width: 100%;
+        background-color: #083d6c;
+        margin: 0;
+        display: -ms-grid;
+        display: grid;
+        padding: 0;
+        list-style: none;
+        clear: both;
+        width: auto;
+        text-align: center;
+        height: 0px;
+        overflow: hidden;
+        transition: height .4s ease;
+        z-index: 1000;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+    }
+
+    .menu1 a:first-child {
+        margin-top: 2rem;
+    }
+
+    .menu1 a:last-child {
+        margin-bottom: 0rem;
+    }
+
+    .menu1 a{
+        display: flex;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .link1 {
+        text-align: center;
+        width: 100%;
+        margin: 0;
+        padding: 0 1rem;
+    }
+}
+
+/* Other styles remain unchanged */

@@ -1,0 +1,1785 @@
+openapi: 3.0.0
+
+info:
+  version: "1.0.0"
+  title: 'LBAW TechNet Chronicles Web API'
+  description: 'Web Resources Specification (A7) for TechNet Chronicles'
+
+tags:
+  - name: 'M01: Authentication'
+  - name: 'M02: Users'
+  - name: 'M03: Articles'
+  - name: 'M04: Comments'
+  - name: 'M05: Tags'
+  - name: 'M06: Search'
+  - name: 'M07: Administration'
+  - name: 'M08: Reports'
+paths:
+  /login:
+    get:
+      operationId: R101
+      summary: 'R101: Login Form'
+      description: 'Get login form. Access: PUB'
+      tags:
+        - 'M01: Authentication'
+      responses:
+        '200': 
+          description: 'Show [Login Page](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/OpenapiUI/login.png)'
+    new:
+      operationId: R102
+      summary: 'R102: Login Action'
+      description: 'new the login form submission. Access: PUB'
+      tags:
+        - 'M01: Authentication'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - password
+      responses:
+        '302':
+          description: 'Redirect after processing the login credentials.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful authentication. Redirect to previous page.'
+                302Error:
+                  description: 'Failed authentication. Redirect to previous page.'
+  /logout:
+    get:
+      operationId: R103
+      summary: 'R103: Logout Action'
+      description: 'Logout the current user. Access: USR'
+      tags:
+        - 'M01: Authentication'
+      responses:
+        '200':
+          description: 'Show [Logout Page](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/OpenapiUI/logout.png)'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+  /register:
+    get:
+      operationId: R104
+      summary: 'R104: Register Form'
+      description: 'Get new user registration form. Access: PUB'
+      tags:
+        - 'M01: Authentication'
+      responses:
+        '200':
+          description: 'Show [Register Page](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/OpenapiUI/register.png)'
+        '404':
+          description: 'Page not found'
+    new:
+      operationId: R105
+      summary: 'R105: Register Action'
+      description: 'new new user registration form submission. Access: PUB'
+      tags:
+        - 'M01: Authentication'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                confirm_password:
+                  type: string
+              required:
+                - username
+                - email
+                - password
+                - confirm_password
+      responses:
+        '302':
+          description: 'Redirect after processing the new user information.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful authentication. Redirect to main page.'
+                  value: '/main'
+                302Failure:
+                  description: 'Failed authentication. Redirect to login form.'
+                  value: '/login'
+  /user/{username}:
+    get:
+      operationId: R201
+      summary: 'R201: User Profile'
+      description: 'Page that shows user information. Access: PUB'
+      tags:
+        - 'M02: Users'
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          description: 'Specifies the user username'
+          required: true
+      responses:
+        '200':
+          description: 'Show [User Profile](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/OpenapiUI/userprofile.png)'
+        '404':
+          description: 'User not found'
+  /user/{username}:
+    get:
+      operationId: R202
+      summary: 'R202: Edit Profile Form'
+      description: 'Page that allows a user to update his information. Access: OWN'
+      tags:
+        - 'M02: Users'
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          description: 'Specifies the user username'
+          required: true
+      responses:
+        '200':
+          description: 'Show [Edit Profile Page](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/OpenapiUI/usereditarticle.png)'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'User not found'
+    patch:
+      operationId: R203
+      summary: 'R203: Edit Profile Action'
+      description: 'Allows a user to edit his information. Access: OWN'
+      tags:
+        - 'M02: Users'
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          description: 'Specifies the user username'
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                bio:
+                  type: string
+              required:
+                - username
+                - bio
+      responses:
+        '302':
+          description: 'Redirect user after editing profile.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Redirects user to their profile page.'
+                  value: '/user/{username}'
+                302Failure:
+                  description: 'Stay in edit page.'
+                  value: '/user/{username}/edit'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'user not found'
+  /api/change_email:
+    patch:
+      operationId: R204
+      summary: 'R204: Change users email'
+      description: 'Allows a user to change its email. Access: OWN'
+      tags:
+        - 'M02: Users'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                email_confirmation:
+                  type: string
+                password:
+                  type: string
+              required:
+                - email
+                - email_confirmation
+                - password
+      responses:
+        '200':
+          description: 'Updated email.'
+        '403':
+          description: 'Forbidden access'
+  /api/change_password:
+    patch:
+      operationId: R205
+      summary: 'R205: Change users password'
+      description: 'Allows a user to change its email. Access: OWN'
+      tags:
+        - 'M02: Users'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                old_password:
+                  type: string
+                new_password:
+                  type: string
+                new_password_confirmation:
+                  type: string
+              required:
+                - old_password
+                - new_password
+                - new_password_confirmation
+      responses:
+        '200':
+          description: 'Updated password.'
+        '403':
+          description: 'Forbidden access'
+  /api/user/{username}:
+    delete:
+      operationId: R206
+      summary: 'R206: Delete an account'
+      description: 'Allows to delete a user account. Access OWN, ADM'
+      tags:
+        - 'M02: Users'
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          description: 'Specifies the user username'
+          required: true
+      responses:
+        '302':
+          description: 'Redirect user after deletion.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'user deleted successfully. Redirects user to homepage.'
+                  value: '/home'
+                302Failure:
+                  description: 'user deletion failed. Redirects user to homepage.'
+                  value: '/home'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'user not found'
+  /api/user/{username}/follow:
+    new:
+      operationId: R207
+      summary: 'R207: Follow a user'
+      description: 'Allows a user to follow another user. Access: USR'
+      tags:
+        - 'M02: Users'
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          description: 'Specifies the username of the user that will be followed'
+          required: true
+      responses:
+        '200':
+          description: 'user followed successfully'
+        '403':
+          description: 'Forbidden Access'
+        '404':
+          description: 'user not found'
+    delete:
+      operationId: R208
+      summary: 'R208: Unfollow a user'
+      description: 'Allows a user to unfollow another user. Access: USR'
+      tags:
+        - 'M02: Users'
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          required: true
+          description: 'Specifies the username of the user that will be unfollowed'
+      responses:
+        '200':
+          description: 'user unfollowed successfully'
+        '403':
+          description: 'Forbidden Access'
+        '404':
+          description: 'user not found'
+  /api/user/{username}/report:
+    new:
+      operationId: R209
+      summary: 'R209: Report a user'
+      description: 'Allows a user to report another user. Access: USR'
+      tags:
+        - 'M02: Users'
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          description: 'Specifies the username of the user that will be reported'
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Report'
+      responses:
+        '200':
+          description: 'User reported successfully'
+        '403':
+          description: 'Forbidden Access'
+        '404':
+          description: 'User not found'
+  /api/user/{username}/news/{page}:
+    get:
+      operationId: R210
+      summary: "R210: User's articles"
+      description: "Shows user's newed news. Access: PUB"
+      tags:
+        - 'M02: Users'
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          description: 'Specifies the username of the user'
+          required: true
+        - in: path
+          name: page
+          schema:
+            type: string
+          description: 'Specifies the number of the page for the query'
+          required: true
+      responses:
+        '200':
+          description: 'Ok. Shows [User Articles](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/OpenapiUI/userarticles.png)'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewsArticle'
+        '404':
+          description: 'user not found'
+  /api/user/{username}/comments/{page}:
+    get:
+      operationId: R211
+      summary: "R211: User's comments"
+      description: "Shows user's newed comments. Access: PUB"
+      tags:
+        - 'M02: Users'
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          description: 'Specifies the username of the user'
+          required: true
+        - in: path
+          name: page
+          schema:
+            type: string
+          description: 'Specifies the number of the page for the query'
+          required: true
+      responses:
+        '200':
+          description: 'Ok. Shows [UI]'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '404':
+          description: 'user not found'
+  /api/user/{username}/bookmarked/{page}:
+    get:
+      operationId: R212
+      summary: "R212: user's bookmarked articles"
+      description: "Shows user's bookmarked/NewsArticles. Access: PUB"
+      tags:
+        - 'M02: Users'
+      parameters:
+        - in: path
+          name: username
+          schema:
+            type: string
+          description: 'Specifies the username of the user'
+          required: true
+        - in: path
+          name: page
+          schema:
+            type: string
+          description: 'Specifies the number of the page for the query'
+          required: true
+      responses:
+        '200':
+          description: 'Ok. Shows Bookmarked Articles'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewsArticle'
+        '404':
+          description: 'user not found'
+  /news:
+    get:
+      operationId: R301
+      summary: 'R301: Shows main page'
+      description: 'Obtains main page and Top News, Feed and Recent News. Access: PUB'
+      tags:
+        - 'M03: Articles'
+      responses:
+        '200':
+          description: 'Show [Home Page](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/OpenapiUI/topnews.png)'
+        '400':
+          description: 'Bad Request'
+        '404':
+          description: 'Page not found'
+  /api/news/feed/{page}:
+    new:
+      operationId: R302
+      summary: 'R302: Main page feed articles'
+      description: "Returns user's feed articles. Access: USR"
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: page
+          schema:
+            type: string
+          description: 'Specifies the number of the page for the query'
+          required: true
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewsArticle'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+  /api/home/topnewsfeed/{page}:
+    new:
+      operationId: R303
+      summary: 'R303: Main page top news feed articles'
+      description: "Returns top news feed articles. Access: PUB"
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: page
+          schema:
+            type: string
+          description: 'Specifies the number of the page for the query'
+          required: true
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewsArticle'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+  /news/write:
+    get:
+      operationId: R304
+      summary: 'R304: Shows write article page'
+      description: 'Allows user to access write article page. Access: USR'
+      tags:
+        - 'M03: Articles'
+      responses:
+        '200':
+          description: 'Show [Write Article Page](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/OpenapiUI/userwritearticle.png)'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '302':
+          description: 'Redirect visitor.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Redirect to login form'
+                  value: '/login'
+    new:
+      operationId: R305
+      summary: 'R305: Adds a news article'
+      description: 'Allows a user to write a news article. Access: USR'
+      tags:
+        - 'M03: Articles'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/NewsArticle'
+      responses:
+        '302':
+          description: 'Redirect visitor.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Redirect to login form.'
+                  value: '/login'
+        '400':
+          description: 'Bad Request'
+  /news/{newsArticle_id}:
+    get:
+      operationId: R306
+      summary: 'R306: Shows a news article'
+      description: 'Shows a article and its comments. Access: PUB'
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          description: 'Specifies the id of the article to be displayed'
+          required: true
+      responses:
+        '200':
+          description: 'Show [Article Page](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/OpenapiUI/article.png)'
+        '400':
+          description: 'Bad Request'
+        '404':
+          description: 'Invalid article id'
+    delete:
+      operationId: R307
+      summary: 'R307: Delete a article'
+      description: 'Allows a user to delete a article. Access OWN, ADM'
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          description: 'Specifies the id of the article to be deleted'
+          required: true
+      responses:
+        '302':
+          description: 'Redirect after updating the news article content.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful edit. Redirect to previous page.'
+                302Error:
+                  description: 'Failed edit. Redirect to previous page.'
+  /api/news/{newsArticle_id}/bookmark:
+    new:
+      operationId: R308
+      summary: 'R308: Bookmarks a article'
+      description: 'Allows a user to bookmark a article. Access: USR'
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          description: 'Specifies the id of the article to be bookmarked'
+          required: true
+      responses:
+        '200':
+          description: 'Success'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Article not found'
+    delete:
+      operationId: R309
+      summary: 'R309: Remove a bookmark on a article'
+      description: 'Allows a user to remove their bookmark on a article. Access: USR'
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          description: 'Specifies the id of the article to be unbookmarked'
+          required: true
+      responses:
+        '200':
+          description: 'Success'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Article not found'
+  /news/{newsArticle_id}/edit:
+    get:
+      operationId: R310
+      summary: 'R310: Shows edit article page'
+      description: 'Allows a user to edit his article. Access: OWN'
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          description: 'Specifies the id of the article to be edited'
+          required: true
+      responses:
+        '200':
+          description: 'Show [Edit Article Page](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/OpenapiUI/usereditarticle.png)'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Invalid article id'
+    patch:
+      operationId: R311
+      summary: 'R311: Edit a article'
+      description: 'Edits the content of a article. Access: OWN'
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          description: 'Specifies the id of the article to be edited'
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/NewsArticle'
+      responses:
+        '302':
+          description: 'Redirect after updating the news article content.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful edition. Redirect to article page.'
+                  value: '/article/{newsArticle_id}'
+                302Error:
+                  description: 'Failed edition. Redirect to edit page.'
+                  value: '/article/{newsArticle_id}/edit'
+        '403':
+          description: 'Forbidden access'
+        '400':
+          description: 'Bad Request'
+  /api/news/{newsArticle_id}/vote:
+    new:
+      operationId: R312
+      summary: 'R312: Rate a article'
+      description: 'Allows a user to rate a news article. Access USR'
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          description: 'Specifies the id of the article to be rated'
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Vote'
+      responses:
+        '200':
+          description: 'Rated article successfully'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Article not found'
+        '302':
+          description: 'Redirect visitor.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Redirect to login form.'
+                  value: '/login'
+    patch:
+      operationId: R313
+      summary: 'R313: Change vote on a news article'
+      description: 'Allows a user to change their vote on a news article. Access: OWN'
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          description: 'Specifies the id of the article to be rated'
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Vote'
+      responses:
+        '200':
+          description: 'Vote edited successfully'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Article not found'
+    delete:
+      operationId: R314
+      summary: 'R314: Remove a vote on a news article'
+      description: 'Allows a user to remove their vote on a article. Access: OWN'
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          description: 'Specifies the id of the article to remove the rating'
+          required: true
+      responses:
+        '200':
+          description: 'Vote deleted successfully'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Article not found'
+  /api/news/{newsArticle_id}/report:
+    new:
+      operationId: R315
+      summary: 'R315: Report a article'
+      description: 'Allows a user to report a news article. Access: USR'
+      tags:
+        - 'M03: Articles'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          description: 'Specifies the id of the article to be reported'
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+              required:
+                - body
+      responses:
+        '200':
+          description: 'Report successfully sent'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Article not found'
+
+
+  /api/news/{newsArticle_id}/comment:
+    new:
+      operationId: R401
+      summary: 'R401: Comment on a article'
+      description: 'Allows a user to comment on a article. Access: USR'
+      tags:
+        - 'M04: Comments'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the article to be commented'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+              required:
+                - body
+      responses:
+        '200':
+          description: 'Comment created successfully'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Article not found'
+  /api/comment/{comment_id}:
+    patch:
+      operationId: R402
+      summary: 'R402: Edit a comment'
+      description: 'Allows a user to edit a comment. Access: OWN'
+      tags:
+        - 'M04: Comments'
+      parameters:
+        - in: path
+          name: comment_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the comment to be edited'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+              required:
+                - body
+      responses:
+        '200':
+          description: 'Comment edited successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Comment not found'
+    delete:
+      operationId: R403
+      summary: 'R403: Delete a comment'
+      description: 'Allows a user to delete a comment. Access: OWN, ADM'
+      tags:
+        - 'M04: Comments'
+      parameters:
+        - in: path
+          name: comment_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the comment to be deleted'
+      responses:
+        '200':
+          description: 'Comment deleted successfully'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Comment not found'
+  /api/news/{newsArticle_id}/comment/{comment_id}/reply:
+    new:
+      operationId: R404
+      summary: 'R404: Reply on a comment'
+      description: 'Allows a user to reply on a comment. Access: USR'
+      tags:
+        - 'M04: Comments'
+      parameters:
+        - in: path
+          name: newsArticle_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the article where the reply will be added'
+        - in: path
+          name: comment_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the comment to be replied'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+              required:
+                - body
+      responses:
+        '200':
+          description: 'Reply created successfully'
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Comment not found'
+  /api/comment/{comment_id}/report:
+    new:
+      operationId: R405
+      summary: 'R405: Report a comment'
+      description: 'Allows a user to report a comment. Access: USR'
+      tags:
+        - 'M04: Comments'
+      parameters:
+        - in: path
+          name: comment_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the comment to be reported'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+              required:
+                - body
+      responses:
+        '200':
+          description: 'Comment reported successfully'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Comment not found'
+  /api/comment/{comment_id}/vote:
+    new:
+      operationId: R406
+      summary: 'R406: Rate a comment'
+      description: 'Allows a user to rate a comment. Access: USR'
+      tags:
+        - 'M04: Comments'
+      parameters:
+        - in: path
+          name: comment_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the comment to be voted'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Vote'
+      responses:
+        '200':
+          description: 'Rated comment successfully'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Comment not found'
+    patch:
+      operationId: R407
+      summary: 'R407: Change vote on a comment'
+      description: 'Allows a user to change their vote on a comment. Access: OWN'
+      tags:
+        - 'M04: Comments'
+      parameters:
+        - in: path
+          name: comment_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the comment where the vote is to be edited'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Vote'
+      responses:
+        '200':
+          description: 'Vote edited successfully'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Comment not found'
+    delete:
+      operationId: R408
+      summary: 'R408: Remove a vote on a comment'
+      description: 'Allows a user to remove a vote on a comment. Access: OWN'
+      tags:
+        - 'M04: Comments'
+      parameters:
+        - in: path
+          name: comment_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the comment where the vote is to be deleted'
+      responses:
+        '200':
+          description: 'Vote deleted successfully'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Comment not found'
+
+#M05
+
+  /tag/{name}:
+    get:
+      operationId: R501
+      summary: 'R501: Show a tag page'
+      description: "Show a tag page and it's news. Access:PUB"
+      tags:
+        - 'M05: Tags'
+      parameters:
+        - in: path
+          name: name
+          schema:
+            type: string
+          required: true
+          description: 'Specifies the name of the tag'
+      responses:
+        '200':
+          description: 'Ok. Show'
+        '400':
+          description: 'Bad Request'
+        '404':
+          description: 'Tag not found'
+    delete:
+      operationId: R502
+      summary: 'R502: Delete a tag'
+      description: 'Allows an admin to delete a tag. Access: ADM'
+      tags:
+        - 'M05: Tags'
+      parameters:
+        - in: path
+          name: name
+          schema:
+            type: string
+          required: true
+          description: 'Specifies the name of the tag'
+      responses:
+        '200':
+          description: 'Tag deleted successfully'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Tag not found'
+  /api/tag/{tag_id}/follow:
+    new:
+      operationId: R503
+      summary: 'R503: Follow a tag'
+      description: 'Allows a member to follow a tag. Access: USR'
+      tags:
+        - 'M05: Tags'
+      parameters:
+        - in: path
+          name: tag_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the tag that will be followed'
+      responses:
+        '200':
+          description: 'Tag followed successfully'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'tag not found'
+    delete:
+      operationId: R504
+      summary: 'R504: Unfollow a tag'
+      description: 'Allows a member to unfollow a tag. Access: USR'
+      tags:
+        - 'M05: Tags'
+      parameters:
+        - in: path
+          name: tag_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the tag that will be unfollowed'
+      responses:
+        '200':
+          description: 'Tag unfollowed successfully'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'tag not found'
+  /api/tag/{tag_id}/report:
+    new:
+      operationId: R505
+      summary: 'R505: Report a tag'
+      description: 'Allows a member to report a tag. Access: USR'
+      tags:
+        - 'M05: tags'
+      parameters:
+        - in: path
+          name: tag_id
+          schema:
+            type: integer
+          required: true
+          description: 'Specifies the id of the tag to be reported'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Report'
+      responses:
+        '200':
+          description: 'Report successfully sent'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Page not found.'
+
+#M06
+
+
+
+  /search:
+    new:
+      operationId: R601
+      summary: 'R601: Search for a new, tag or member'
+      description: 'Allows a website user to search for a new,tag or member. Access: PUB'
+      tags:
+        - 'M06: Search'
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                query:
+                  type: string
+              required:
+                - query
+      responses:
+        '302':
+          description: 'Redirect after processing the query.'
+          headers:
+            Location:
+              schema:
+                type: string
+              examples:
+                302Success:
+                  description: 'Successful search. Redirect to search results page.'
+                  value: '/search/{query}'
+        '400':
+          description: 'Bad Request'
+  /search/{query}:
+    get:
+      operationId: R602
+      summary: 'R602: Search results'
+      description: 'Show the search results for news, tags or members according to query. Access: PUB'
+      tags:
+        - 'M06: Search'
+      parameters:
+        - in: path
+          name: query
+          schema:
+            type: string
+          required: true
+          description: 'Specifies the query received'
+      responses:
+        '200':
+          description: 'Success. [Show Search Results](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/OpenapiUI/searchresults.png)'
+        '400':
+          description: 'Bad Request'
+        '404':
+          description: 'Page not found'
+  /api/search/news:
+    get:
+      operationId: R603
+      summary: 'R603: Search news API'
+      description: 'Searches for news and returns the result as JSON. Access: PUB'
+      tags:
+        - 'M06: Search'
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: string
+          required: true
+          description: 'Specifies the query received'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/News'
+        '400':
+          description: 'Bad Request'
+  /api/search/tags:
+    get:
+      operationId: R604
+      summary: 'R604: Search tags API'
+      description: 'Searches for tags and returns the result as JSON. Access: PUB'
+      tags:
+        - 'M06: Search'
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: string
+          required: true
+          description: 'Specifies the query received'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/tag'
+        '400':
+          description: 'Bad Request'
+  /api/search/members:
+    get:
+      operationId: R605
+      summary: 'R605: Search Members API'
+      description: 'Searches for members and returns the result as JSON. Access: PUB'
+      tags:
+        - 'M06: Search'
+      parameters:
+        - in: query
+          name: query
+          schema:
+            type: string
+          required: true
+          description: 'Specifies the query received'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Member'
+        '400':
+          description: 'Bad Request'
+
+
+#M07
+
+  /admin:
+    get:
+      operationId: R701
+      summary: 'R701: Show admin page'
+      description: 'Shows a admin page with most reported content. Access: ADM'
+      tags:
+        - 'M07: Administrator and Static Pages'
+      responses:
+        '200':
+          description: 'Ok. Show'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Invalid filter'
+
+  /admin/users/{user_id}/block:
+    post:
+      operationId: R702
+      summary: 'R702: Block User Account'
+      description: 'Blocks a user account. Access: ADM'
+      tags:
+        - 'M07: Administrator and Static Pages'
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user to block
+      responses:
+        '200':
+          description: 'User account successfully blocked'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'User not found'
+    
+  /admin/users/{user_id}/unblock:
+    post:
+      operationId: R703
+      summary: 'R703: Unblock User Account'
+      description: 'Unblocks a user account. Access: ADM'
+      tags:
+        - 'M07: Administrator and Static Pages'
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user to unblock
+      responses:
+        '200':
+          description: 'User account successfully unblocked'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'User not found'
+  
+  /admin/users/{user_id}/delete:
+    delete:
+      operationId: R704
+      summary: 'R704: Delete User Account'
+      description: 'Deletes a user account. Access: ADM'
+      tags:
+        - 'M07: Administrator and Static Pages'
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user to delete
+      responses:
+        '200':
+          description: 'User account successfully deleted'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'User not found'
+
+  /admin/content/{content_id}/delete:
+    delete:
+      operationId: R705
+      summary: 'R705: Delete Article/Comment'
+      description: 'Deletes an article or comment. Access: ADM'
+      tags:
+        - 'M07: Administrator and Static Pages'
+      parameters:
+        - in: path
+          name: content_id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the article or comment to delete
+      responses:
+        '200':
+          description: 'Content successfully deleted'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Content not found'
+  
+  /admin/tags/manage:
+    post:
+      operationId: R706
+      summary: 'R706: Manage Tag Proposals'
+      description: 'Approves or rejects tag proposals. Access: ADM'
+      tags:
+        - 'M07: Administrator and Static Pages'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tag_id:
+                  type: integer
+                action:
+                  type: string
+                  enum: [approve, reject]
+      responses:
+        '200':
+          description: 'Tag proposal successfully processed'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Tag not found'
+
+  /admin/static/{page_id}/update:
+    put:
+      operationId: R707
+      summary: 'R707: Update Static Page'
+      description: 'Updates content of a static page. Access: ADM'
+      tags:
+        - 'M07: Administrator and Static Pages'
+      parameters:
+        - in: path
+          name: page_id
+          required: true
+          schema:
+            type: integer
+          description: The ID of the static page to update
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+      responses:
+        '200':
+          description: 'Static page successfully updated'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+        '404':
+          description: 'Page not found'
+
+
+#M08
+  
+  
+  
+  /api/reports/news:
+    get:
+      operationId: R801
+      summary: 'R801: Reported news API'
+      description: 'Returns reported news as JSON. Access: ADM'
+      tags:
+        - 'M08: Reports'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/NewsArticle'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+  /api/reports/comments:
+    get:
+      operationId: R802
+      summary: 'R802: Reported Comments API'
+      description: 'Returns reported comments as JSON. Access: ADM'
+      tags:
+        - 'M08: Reports'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+  /api/reports/tags:
+    get:
+      operationId: R803
+      summary: 'R803: Reported tags API'
+      description: 'Returns reported tags as JSON. Access: ADM'
+      tags:
+        - 'M08: Reports'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/tag'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+  /api/reports/users:
+    get:
+      operationId: R804
+      summary: 'R804: Reported Members API'
+      description: 'Returns reported users as JSON. Access: ADM'
+      tags:
+        - 'M08: Reports'
+      responses:
+        '200':
+          description: 'Success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Member'
+        '400':
+          description: 'Bad Request'
+        '403':
+          description: 'Forbidden access'
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        bio:
+          type: string
+        reputation:
+          type: integer
+        role:
+          type: integer
+
+    Tag:
+      type: object
+      properties:
+        tag_id:
+          type: integer
+        name:
+          type: string
+
+    Comment:
+      type: object
+      properties:
+        comment_id:
+          type: integer
+        body:
+          type: string
+        date_time:
+          type: string
+          format: date-time
+        reputation:
+          type: integer
+        article_id:
+          type: integer
+        commentCreator_id:
+          type: integer
+
+    NewsArticle:
+      type: object
+      properties:
+        newsArticle_id:
+          type: integer
+        title:
+          type: string
+        body:
+          type: string
+        date_time:
+          type: string
+          format: date-time
+        reputation:
+          type: integer
+        creator_id:
+          type: integer
+
+    Report:
+      type: object
+      properties:
+
+        report_id:
+          type: integer
+        body:
+          type: string
+        date_time:
+          type: string
+          format: date-time
+        reporter_id:
+          type: integer
+        reported_id:
+          type: integer
+
+    Vote:
+      type: object
+      properties:
+        reputationVote_id:
+          type: integer
+        score:
+          type: integer
+        voter_id:
+          type: integer
+        voteType:
+          type: string
+
+    FollowNotification:
+      type: object
+      properties:
+        followNotification_id:
+          type: integer
+        date_time:
+          type: string
+          format: date-time
+        body:
+          type: string
+        read:
+          type: boolean
+        notified_id:
+          type: integer
+        follower_id:
+          type: integer
+
+    CommentNotification:
+      type: object
+      properties:
+        commentNotification_id:
+          type: integer
+        date_time:
+          type: string
+          format: date-time
+        body:
+          type: string
+        read:
+          type: boolean
+        notified_id:
+          type: integer
+        comment_id:
+          type: integer
+
+    ReplyNotification:
+      type: object
+      properties:
+        parent_id:
+          type: integer
+        child_id:
+          type: integer
+        date_time:
+          type: string
+          format: date-time
+
+    Notifications:
+      type: object
+      properties:
+        follows:
+          type: array
+          items:
+            $ref: '#/components/schemas/FollowNotification'
+        comments:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommentNotification'
+        replies:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReplyNotification'

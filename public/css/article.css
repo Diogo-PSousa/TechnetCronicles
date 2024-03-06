@@ -1,0 +1,178 @@
+html,
+body,
+main {
+  min-height: 80vh;
+}
+
+.article a {
+  color: #757575;
+}
+
+.article a:hover {
+  color: #303030;
+}
+
+/* CSS for the article page */
+.article-page {
+  width: 800px;
+  /* Adjust as needed */
+  margin: 10px auto;
+  /* Center the container */
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  min-height: 80vh;
+  justify-content: space-between;
+}
+
+.news-article-body {
+  margin-left: 100px;
+}
+
+.title_user_date {
+  width: 100%;
+}
+
+.title_user_date a {
+  text-decoration: none;
+  color: #083d6c;
+}
+
+.article-page .reputation {
+  margin-left: 20px;
+  margin-right: 20px;
+  height: auto;
+  background-color: transparent;
+  flex: none;
+}
+
+.article-page img {
+  width: 97%;
+  height: 400px;
+  margin: 10px 0;
+  align-self: center;
+}
+
+
+.article-page header {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.article-user {
+  font-size: 14px;
+  color: #888;
+}
+
+.article-duser {
+  text-decoration: line-through;
+  font-size: 14px;
+  color: #888;
+}
+
+.article-title {
+  margin: 20px 0;
+}
+
+.news-article-body {
+  /* Styles for the article body */
+  line-height: 1.6;
+  /* Other styles */
+}
+
+.article_page_buttons {
+  padding: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+/* Styles for the edit and delete sections */
+#edit,
+#delete {
+  display: flex;
+  justify-content: space-around;
+  height: 30px;
+}
+
+#delete form {
+  display: inline-block;
+  /* Prevents form from taking full width */
+}
+
+small {
+  margin: 20px;
+}
+
+.report-form {
+  width: calc(100% - 40px); /* Full width minus padding */
+  padding: 10px 20px; /* Adjust padding as needed */
+  box-sizing: border-box; /* Include padding in width calculation */
+  border-top: 1px solid #ccc; /* Separator from the rest of the article */
+}
+
+.report-form textarea {
+  width: 100%; /* Make textarea full width */
+  margin-bottom: 10px; /* Space between textarea and button */
+}
+
+.report-form button {
+  display: block; /* Full width button */
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .article-page {
+    max-width: 100%;
+    padding: 1rem;
+    margin: 0;
+  }
+
+  .article-page .reputation {
+    margin: 0;
+    margin-right: 0.5rem;
+  }
+
+  .article-page .title_user_date {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .article-page header .topic .article-tags a{
+    margin: 0;
+  }
+
+  .article-page .news-article-body {
+    margin: 0;
+  }
+}
+#toggleFavoriteBtn{
+  background-color: transparent;
+  border: transparent;
+}
+
+#toggleFavoriteBtn i{
+  color: #083d6c;
+}
+
+.user_date_bookmark{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.article-info-bookmark{
+  display: flex;
+  flex-direction: row;
+}
+
+.article-info-bookmark i{
+  font-size: 3rem;
+}
+
+.topic .article-tags{
+  display: flex;
+  flex-direction: column;
+}
+

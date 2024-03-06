@@ -1,0 +1,179 @@
+body {
+  background-color: #Dedede;
+  color: #083d6c;
+  margin: 0;
+  line-height:1.4;
+}
+
+.sans-serif {
+  font-family: 'Merriweather Sans', sans-serif;
+}
+
+
+#content {
+  margin-bottom: 20px;
+}
+
+#content label {
+  font-weight: normal;
+}
+
+#content>form {
+  margin: 5rem auto;
+  padding: 1em;
+  max-width: 20em;
+  border: 1px solid;
+  border-radius: 5px;
+}
+
+#content>form .error {
+  font-weight: bold;
+  color: #ff3333;
+}
+
+#content>form .success {
+  font-weight: bold;
+  color: #106af1;
+}
+
+#content>form input {
+  background-color: white;
+}
+
+main section#content {
+  margin: 0 auto;
+  display: inline-flex;
+  width: 100%;
+  margin-top: 1rem;
+  justify-content: center;
+}
+
+@media (max-width: 70em) {
+  #cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  main>header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  main>header h1 {
+    grid-row-end: span 2;
+  }
+}
+
+@media (max-width: 40em) {
+  #cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 25em) {
+  body {
+    margin: 0;
+  }
+
+  main>header {
+    margin: 0;
+    padding: 0.5em;
+  }
+
+  main>header span {
+    margin: 0;
+  }
+
+  #content form {
+    margin: 0;
+    max-width: 25em;
+  }
+
+  article.card {
+    margin: 0;
+    border-bottom: 1px solid rgba(96, 108, 118, 0.4);
+  }
+}
+
+/**
+   * Override milligram colors
+   * Some styles might be missing
+   **/
+button {
+  background-color: #083d6c;
+  border-color: #083d6c;
+}
+
+a.button {
+  background-color: #083d6c;
+  border-color: #083d6c;
+}
+
+a.button.button-outline {
+  color: #083d6c;
+}
+
+footer a {
+  color: #ffffff;
+}
+
+header a {
+  color: #ffffff;
+}
+
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=password]:focus {
+  border-color: #083d6c;
+}
+
+
+/* Style the scrollbar track */
+::-webkit-scrollbar {
+  width: 8px;
+  /* Width of the scrollbar */
+  background-color: #f0f0f0;
+  /* Background color for the track */
+}
+
+/* Style the scrollbar thumb (the draggable part) */
+::-webkit-scrollbar-thumb {
+  background-color: #083d6c;
+  /* Color of the thumb */
+  border-radius: 4px;
+  /* Rounded corners for the thumb */
+}
+
+
+/* Style the scrollbar track when hovered over */
+::-webkit-scrollbar-track:hover {
+  background-color: #f0f0f0;
+  /* Change color on hover */
+}
+
+/* Style the scrollbar thumb when hovered over */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #065a99;
+  /* Change thumb color on hover */
+}
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: -400px;
+  background-color:#065a99;
+  color: #fff;
+  padding: 10px 20px;
+  width: auto;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease-in-out, right 0.3s ease-in-out;
+  transform: translateX(0);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.notification.show {
+  transform: translateX(0);
+  right: 20px;
+}

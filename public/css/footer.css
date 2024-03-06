@@ -1,0 +1,84 @@
+/* Style for the footer container */
+footer {
+    position: fixed;
+    overflow: hidden;
+    bottom: 0;
+    width: 100%;
+    background-color: #083d6c;
+    /* Background color for the footer */
+    padding: 10px 0;
+    text-align: center;
+    z-index: 100;
+    /* Ensure the footer is above the content */
+    color: #ffffff;
+    font-family: 'Merriweather Sans', sans-serif;
+}
+
+.back-to-top {
+    position: absolute;
+    right: 2rem;
+    /* Adjust the right distance as needed */
+    bottom: 1rem;
+    /* Adjust the bottom distance as needed */
+}
+
+#content{
+    padding-bottom: 5.5rem;
+}
+
+/* Style for the back-to-top link */
+.back-to-top a {
+    text-decoration: none;
+    color: #ffffff;
+    /* Replace with your desired normal color */
+}
+
+/* Style for the back-to-top link on hover */
+.back-to-top a:hover {
+    color: #Dedede;
+    /* Replace with your desired hover color */
+}
+
+/* Style for the back-to-top link when clicked */
+.back-to-top a:active,
+.back-to-top a:focus {
+    color: #Dedede;
+    /* Replace with your desired active/focus color */
+}
+
+
+/* Style for the centered content within the footer */
+.centered-content {
+    display: flex;
+    justify-content: center;
+}
+
+/* Style for the footer menu */
+.footer-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Style for each footer menu item */
+.footer-menu li {
+    display: inline;
+}
+
+/* Style for footer menu item links */
+.footer-menu li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+/* Add '|' after each footer menu item except the last one */
+.footer-menu li:not(:last-child)::after {
+    content: "|";
+    /* Content is the vertical bar */
+    margin-left: 10px;
+    /* Adjust spacing as needed */
+    margin-right: 5px;
+    color: #ffffff;
+    /* Color of the vertical bar */
+}
