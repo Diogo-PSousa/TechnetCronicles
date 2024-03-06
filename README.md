@@ -17,7 +17,7 @@
 
 ## Product
 
-Video Presentation : [Video Link](https://git.fe.up.pt/lbaw/lbaw2324/lbaw2361/-/blob/main/lbaw2361.mp4)
+Video Presentation : [Video Link](https://github.com/Diogo-PSousa/TechnetCronicles/blob/main/lbaw2361.mp4)
 
 **Full Docker command to start the image available at the group's GitLab Container Registry using the production database:**
 
